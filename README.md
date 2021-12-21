@@ -12,7 +12,7 @@ Tubify uses the Spotify API to search and save your music automatically, so you 
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for more.
+This project, including the logo, is licensed under the MIT License. See [LICENSE](LICENSE) for more.
 
 ## Contribution
 
