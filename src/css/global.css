@@ -1,0 +1,42 @@
+body {
+    width: 200px;
+    margin: 15px;
+    font-family: sans-serif;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 8px;
+}
+
+h3 {
+    font-size: 1.25em;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+div {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    height: 25%;
+    padding: 5px;
+    font-size: 1.25em;
+    background-color: #1DB954;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+div:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4) 0 0);
+}
