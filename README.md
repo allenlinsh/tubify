@@ -1,6 +1,6 @@
 # Tubify
 
-![tubify](images/icon-128.png)
+![tubify](src/images/icon-128.png)
 
 Have you ever heard a song on YouTube but struggle to find it on Spotify? Tubify is a chrome extension that saves music from YouTube to Spotify instantly, saving you time from searching and downloading the song manually. It has two main features:
 - Search the current YouTube video title in Spotify, and save the most relevant song track to your Spotify library
