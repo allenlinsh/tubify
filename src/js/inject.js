@@ -28,7 +28,6 @@ function checkNode() {
     const title = targetNode.innerText;
     chrome.storage.sync.get(
         {list: []}, function (data) {
-            console.log(data.list);
             update(data.list, title);
         }
     );
