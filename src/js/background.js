@@ -30,52 +30,53 @@ function create_spotify_endpoint() {
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'login') {
         if (user_signed_in) {
-            // redirect to main page
             console.log("User is already signed in.");
         } else {
             // sign the user in with Spotify
-            chrome.identity.launchWebAuthFlow({
-                                                  url: create_spotify_endpoint(),
-                                                  interactive: true
-                                              }, function (redirect_url) {
-                if (chrome.runtime.lastError) {
-                    sendResponse({message: 'fail'});
-                } else {
-                    if (redirect_url.includes('callback?error=access_denied')) {
+            chrome.identity.launchWebAuthFlow(
+                {
+                    url: create_spotify_endpoint(),
+                    interactive: true
+                }, function (redirect_url) {
+                    if (chrome.runtime.lastError) {
                         sendResponse({message: 'fail'});
                     } else {
-                        ACCESS_TOKEN =
-                            redirect_url.substring(redirect_url.indexOf('access_token=') + 13);
-                        ACCESS_TOKEN = ACCESS_TOKEN.substring(0, ACCESS_TOKEN.indexOf('&'));
-                        let state = redirect_url.substring(redirect_url.indexOf('state=') + 6);
-
-                        if (state === STATE) {
-                            console.log("SUCCESS")
-                            user_signed_in = true;
-
-                            /*
-                            // sign the user out every 60 minutes
-                            setTimeout(() => {
-                                ACCESS_TOKEN = '';
-                                user_signed_in = false;
-                            }, 3600000);
-                             */
-
-                            chrome.action.setPopup({popup: 'main.html'}, () => {
-                                sendResponse({message: 'success'});
-                            });
-                        } else {
+                        if (redirect_url.includes('callback?error=access_denied')) {
                             sendResponse({message: 'fail'});
+                        } else {
+                            ACCESS_TOKEN =
+                                redirect_url.substring(redirect_url.indexOf('access_token=') + 13);
+                            ACCESS_TOKEN = ACCESS_TOKEN.substring(0, ACCESS_TOKEN.indexOf('&'));
+                            let state = redirect_url.substring(redirect_url.indexOf('state=') + 6);
+
+                            if (state === STATE) {
+                                console.log("SUCCESS")
+                                user_signed_in = true;
+
+                                /*
+                                // sign the user out every 60 minutes
+                                setTimeout(() => {
+                                    ACCESS_TOKEN = '';
+                                    user_signed_in = false;
+                                }, 3600000);
+                                 */
+
+                                chrome.action.setPopup({popup: 'src/html/main.html'}, () => {
+                                    sendResponse({message: 'success'});
+                                });
+                            } else {
+                                sendResponse({message: 'fail'});
+                            }
                         }
                     }
                 }
-            });
+            );
         }
 
         return true;
     } else if (request.message === 'logout') {
         user_signed_in = false;
-        chrome.action.setPopup({popup: 'popup.html'}, () => {
+        chrome.action.setPopup({popup: 'src/html/popup.html'}, () => {
             sendResponse({message: 'success'});
         });
 
